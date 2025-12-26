@@ -99,3 +99,26 @@ from malware.
 I preferred to avoid /tmp for compilation for some subtle reasons, including
 that sensitive scripts would not accidentally escape filesystem security on the
 script, think /root/bin/ping-secret-api.ml
+
+# editing with Merlin
+
+This generated code, which calls :MerlinUse on every package in
+first line, improves the editing experience a great deal:
+
+```
+autocmd BufReadPost *.ml call SetupMerlinPackages()
+
+function! SetupMerlinPackages()
+  let first_line = getline(1)
+  let matches = matchlist(first_line, '-package \(\w\+\)')
+  let start = 0
+  while 1
+    let m = matchstr(first_line, '-package \zs\w\+', start)
+    if m == ''
+      break
+    endif
+    execute ':MerlinUse ' . m
+    let start = matchend(first_line, '-package \w\+', start)
+  endwhile
+endfunction
+```
