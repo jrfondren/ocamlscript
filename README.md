@@ -1,6 +1,6 @@
 thin-ocamlscript lets you use OCaml as a scripting language while only paying
 the compilation cost once per modification of a script, and while getting
-dependencies and preprossing through ocamlfind.
+dependencies and preprocessing through ocamlfind.
 
 thin-ocamlscript is very similar to ocamlscript, but
 
